@@ -18,10 +18,10 @@ def _parse_bool(val: Union[str, bool]) -> bool:  # pylint: disable=E1136
 
 
 class AppConfig:
-    API_BASE: str
-    CONNECTION_STRING: str
     DEBUG: bool = False
     ENV: str = "production"
+    API_BASE: str
+    CONNECTION_STRING: str
 
     """
     Map environment variables to class fields according to these rules:
