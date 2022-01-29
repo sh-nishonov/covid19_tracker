@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+urllib3 = "*"
+jupyter = "*"
+notebook = "*"
+pymongo = {extras = ["srv"], version = "*"}
+python-dotenv = "*"
+numpy = "*"
+pandas = "*"
+plotly = "==5.5.0"
+streamlit = "*"
+
+[dev-packages]
+pre-commit = "*"
+
+[requires]
+python_version = "3.9"
