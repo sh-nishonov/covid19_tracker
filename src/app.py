@@ -22,10 +22,10 @@ def main():
     # df = from_collection_to_df(collection_realtime_info)
     # df.to_csv("../data/realtime_info.csv")
     # respond = create(collection_realtime_info, data)
-    geojson_path = Path(__file__)
+    geojson_path = Path(__file__).parents[1]
     st.write(geojson_path.cwd())
     fig = manipulate_realtime_info(
-        path_geojson=geojson_path, db_name="covid19", collection="realtime_info"
+        path_geojson=geojson_path/"data/countries.geojson", db_name="covid19", collection="realtime_info"
     )
     st.plotly_chart(fig)
 
