@@ -25,7 +25,7 @@ def main():
     geojson_path = Path(__file__).parents[1]
     st.write(geojson_path)
     fig = manipulate_realtime_info(
-        path_geojson="../data/countries.geojson", db_name="covid19", collection="realtime_info"
+        path_geojson=geojson_path, db_name="covid19", collection="realtime_info"
     )
     st.plotly_chart(fig)
 
