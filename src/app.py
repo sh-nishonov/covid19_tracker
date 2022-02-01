@@ -1,7 +1,6 @@
 from APICall import get_data
 from CRUD import update_realtime
 from data_manipulation import manipulate_realtime_info
-from config import Config
 import streamlit as st
 
 
@@ -15,7 +14,7 @@ st.text("# Global COVID-19 data.")
 def main():
 
     # print(config["API_BASE"])
-    data = get_data(Config.API_BASE)
+    data = get_data(st.secrets.API_BASE)
     update_realtime(data)
     # db = get_db_connection(Config.CONNECTION_STRING)
     # collection_realtime_info = db.covid19.realtime_info

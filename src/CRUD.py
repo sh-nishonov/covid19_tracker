@@ -2,14 +2,13 @@ import pandas as pd
 import numpy as np
 from functools import wraps
 import pymongo
-from config import Config
 import streamlit as st
 
 
 def provide_db_connection(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        conn = pymongo.MongoClient(Config.CONNECTION_STRING)
+        conn = pymongo.MongoClient(st.secrets.CONNECTION_STRING)
         result = func(conn=conn, *args, **kwargs)
         conn.close()
         return result
