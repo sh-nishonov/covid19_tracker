@@ -22,7 +22,7 @@ def main():
     # df = from_collection_to_df(collection_realtime_info)
     # df.to_csv("../data/realtime_info.csv")
     # respond = create(collection_realtime_info, data)
-    geojson_path = Path(__file__).parent[1]
+    geojson_path = Path(__file__).parents[1]
     st.write(geojson_path)
     fig = manipulate_realtime_info(
         path_geojson="../data/countries.geojson", db_name="covid19", collection="realtime_info"
