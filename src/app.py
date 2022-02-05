@@ -1,6 +1,6 @@
 from APICall import get_data
 from CRUD import update_realtime
-from data_manipulation import manipulate_realtime_info
+from data_manipulation import manipulate_realtime_info, plot_realtime_info
 import streamlit as st
 from pathlib import Path
 
@@ -23,10 +23,11 @@ def main():
     # df.to_csv("../data/realtime_info.csv")
     # respond = create(collection_realtime_info, data)
     geojson_path = Path(__file__).parents[1]
-    st.write(geojson_path.cwd())
-    fig = manipulate_realtime_info(
+    #st.write(geojson_path.cwd())
+    df, countries= manipulate_realtime_info(
         path_geojson=geojson_path/"data/countries.geojson", db_name="covid19", collection="realtime_info"
     )
+    fig = plot_realtime_info(df, countries)
     st.plotly_chart(fig)
 
 

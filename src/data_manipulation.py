@@ -2,6 +2,7 @@ from CRUD import from_collection_to_df
 from APICall import get_geojson_data
 import pandas as pd
 import plotly.express as px
+import plotly
 import numpy as np
 import streamlit as st
 
@@ -38,8 +39,13 @@ def manipulate_realtime_info(path_geojson, db_name, collection, city=False):
     )
     df_new = df_country.merge(new_countries, how="inner", on=["country"])
     df_new["log_confirmed"] = np.log10(df_new["confirmed"])
+    return df_new, countries
+    
+
+@st.cache(ttl=86400)
+def plot_realtime_info(dataframe: pd.DataFrame, countries) -> plotly.graph_objects.Figure:
     fig = px.choropleth_mapbox(
-        df_new[["country", "confirmed", "log_confirmed"]],
+        dataframe[["country", "confirmed", "log_confirmed"]],
         geojson=countries,
         locations="country",
         featureidkey="properties.ADMIN",
