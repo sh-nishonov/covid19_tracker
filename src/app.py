@@ -24,9 +24,11 @@ def main():
     # respond = create(collection_realtime_info, data)
     geojson_path = Path(__file__).parents[1]
     #st.write(geojson_path.cwd())
-    df, countries= manipulate_realtime_info(
+    df, countries, df_global = manipulate_realtime_info(
         path_geojson=geojson_path/"data/countries.geojson", db_name="covid19", collection="realtime_info"
     )
+    print(df_global)
+    st.text(df_global.iloc[0, 2])
     fig = plot_realtime_info(df, countries)
     st.plotly_chart(fig)
 

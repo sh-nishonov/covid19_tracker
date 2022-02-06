@@ -37,9 +37,10 @@ def manipulate_realtime_info(path_geojson, db_name, collection, city=False):
         },
         inplace=True,
     )
+    df_global = df_country.loc[df_country['country'] == 'Global', :]
     df_new = df_country.merge(new_countries, how="inner", on=["country"])
     df_new["log_confirmed"] = np.log10(df_new["confirmed"])
-    return df_new, countries
+    return (df_new, countries, df_global)
     
 
 @st.cache(ttl=86400)
