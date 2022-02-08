@@ -37,14 +37,16 @@ def manipulate_realtime_info(path_geojson, db_name, collection, city=False):
         },
         inplace=True,
     )
-    df_global = df_country.loc[df_country['country'] == 'Global', :]
+    df_global = df_country.loc[df_country["country"] == "Global", :]
     df_new = df_country.merge(new_countries, how="inner", on=["country"])
     df_new["log_confirmed"] = np.log10(df_new["confirmed"])
     return (df_new, countries, df_global)
-    
+
 
 @st.cache(ttl=86400)
-def plot_realtime_info(dataframe: pd.DataFrame, countries) -> plotly.graph_objects.Figure:
+def plot_realtime_info(
+    dataframe: pd.DataFrame, countries
+) -> plotly.graph_objects.Figure:
     fig = px.choropleth_mapbox(
         dataframe[["country", "confirmed", "log_confirmed"]],
         geojson=countries,

@@ -21,9 +21,9 @@ def provide_db_connection(func):
 def update_realtime(data, conn):
 
     for country, country_stats in data.items():
-        for city, city_stats in country_stats.items():
+        for _, city_stats in country_stats.items():
             mapping = {
-                "filter": {"country": country + city},
+                "filter": {"country": country},
                 "update": {
                     "$set": {
                         "confirmed": city_stats["confirmed"],
