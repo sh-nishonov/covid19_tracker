@@ -12,6 +12,7 @@ numpy = "*"
 pandas = "*"
 plotly = "==5.5.0"
 streamlit = "*"
+millify = "*"
 
 [dev-packages]
 pre-commit = "*"
