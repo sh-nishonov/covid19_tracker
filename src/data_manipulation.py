@@ -1,4 +1,3 @@
-from CRUD import from_collection_to_df
 from APICall import get_geojson_data
 import pandas as pd
 import plotly.express as px
@@ -8,16 +7,14 @@ import streamlit as st
 
 
 @st.cache(ttl=86400)
-def manipulate_realtime_info(path_geojson, db_name, collection, city=False):
+def manipulate_realtime_info(path_geojson, df):
     countries = get_geojson_data(path_geojson)
-    df = from_collection_to_df(db_name=db_name, coll_name=collection)
-    df = df.drop(["_id"], axis=1)
-    df_country = df[df["city"] == False]
+
     new_countries = pd.DataFrame(
         [name["properties"]["ADMIN"] for name in countries["features"]],
         columns=["country"],
     )
-    df_country.replace(
+    df.replace(
         {
             "country": {
                 "Korea, South": "South Korea",
@@ -37,8 +34,8 @@ def manipulate_realtime_info(path_geojson, db_name, collection, city=False):
         },
         inplace=True,
     )
-    df_global = df_country.loc[df_country["country"] == "Global", :]
-    df_new = df_country.merge(new_countries, how="inner", on=["country"])
+    df_global = df.loc[df["country"] == "Global", :]
+    df_new = df.merge(new_countries, how="inner", on=["country"])
     df_new["log_confirmed"] = np.log10(df_new["confirmed"])
     return (df_new, countries, df_global)
 
