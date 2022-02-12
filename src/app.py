@@ -3,7 +3,6 @@ from CRUD import from_collection_to_df
 from data_manipulation import manipulate_realtime_info, plot_realtime_info
 import streamlit as st
 from pathlib import Path
-from millify import millify
 
 
 # @st.cache(hash_funcs={"pymongo.mongo_client.MongoClient": id})
@@ -29,10 +28,10 @@ def main():
 
     with confirmed_col:
         st.subheader("Confirmed Cases")
-        st.text(millify(df_global.iloc[0, 2], precision=2))
+        st.text(df_global.iloc[0, 2])  # millify(df_global.iloc[0, 2], precision=2)
     with deaths_col:
         st.subheader("Death Cases")
-        st.text(millify(df_global.iloc[0, 3], precision=2))
+        st.text(df_global.iloc[0, 3])  # millify(df_global.iloc[0, 3], precision=2)
     with vaccines_col:
         st.subheader("Vaccines")
         st.text("0")
