@@ -30,12 +30,12 @@ def main():
     with confirmed_col:
         st.subheader("Confirmed Cases")
         st.text(
-            millify.millify(df_global.iloc[0, 2], precision=2)
+            millify.millify(df_global.iloc[0, 1], precision=2)
         )  # millify(df_global.iloc[0, 2], precision=2)
     with deaths_col:
         st.subheader("Death Cases")
         st.text(
-            millify.millify(df_global.iloc[0, 3], precision=2)
+            millify.millify(df_global.iloc[0, 2], precision=2)
         )  # millify(df_global.iloc[0, 3], precision=2)
     with vaccines_col:
         st.subheader("Vaccines")
