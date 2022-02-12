@@ -7,13 +7,12 @@ name = "pypi"
 urllib3 = "*"
 jupyter = "*"
 notebook = "*"
-pymongo = {extras = ["srv"], version = "*"}
 python-dotenv = "*"
 numpy = "*"
 pandas = "*"
 plotly = "==5.5.0"
 streamlit = "*"
-millify = "*"
+millify = "=0.1.1"
 
 [dev-packages]
 pre-commit = "*"
