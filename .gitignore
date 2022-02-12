@@ -7,3 +7,5 @@ Pipfile.lock
 .vscode
 config.py
 .streamlit
+raw.json
+sample.csv
