@@ -18,7 +18,7 @@ def main():
     st.title("COVID-19 MINI DASHBOARD")
     confirmed_col, deaths_col, vaccines_col = st.columns(3)
 
-    data = get_data(st.secrets.API_BASE, dest="cases")
+    data = get_data(st.secrets.API_BASE, "cases")
 
     geojson_path = Path(__file__).parents[1]
 
