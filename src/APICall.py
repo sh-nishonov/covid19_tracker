@@ -4,10 +4,10 @@ import streamlit as st
 
 
 @st.cache(ttl=86400)
-def get_data(url: str):
+def get_data(url: str, dest: str):
     http = urllib3.PoolManager()
 
-    req = http.request("GET", url)
+    req = http.request("GET", url + dest)
     data = json.loads(req.data.decode("utf-8"))
 
     return data
