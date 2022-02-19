@@ -7,13 +7,7 @@ import streamlit as st
 
 
 @st.cache(ttl=86400)
-def manipulate_realtime_info(path_geojson, df):
-    countries = get_geojson_data(path_geojson)
-
-    new_countries = pd.DataFrame(
-        [name["properties"]["ADMIN"] for name in countries["features"]],
-        columns=["country"],
-    )
+def update_df(df):
     df.replace(
         {
             "country": {
@@ -34,6 +28,19 @@ def manipulate_realtime_info(path_geojson, df):
         },
         inplace=True,
     )
+    return df
+
+
+@st.cache(ttl=86400)
+def manipulate_realtime_info(path_geojson, df):
+    countries = get_geojson_data(path_geojson)
+
+    new_countries = pd.DataFrame(
+        [name["properties"]["ADMIN"] for name in countries["features"]],
+        columns=["country"],
+    )
+    df = update_df(df)
+
     df_global = df.loc[df["country"] == "Global", :]
     df_new = df.merge(new_countries, how="inner", on=["country"])
     df_new["log_confirmed"] = np.log10(df_new["confirmed"])
