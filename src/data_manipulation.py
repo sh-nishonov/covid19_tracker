@@ -43,26 +43,42 @@ def manipulate_realtime_info(path_geojson, df):
 
     df_global = df.loc[df["country"] == "Global", :]
     df_new = df.merge(new_countries, how="inner", on=["country"])
-    df_new["log_confirmed"] = np.log10(df_new["confirmed"])
+    df_new["log_count"] = np.log10(df_new.iloc[:, 2])
     return (df_new, countries, df_global)
 
 
 @st.cache(ttl=86400)
 def plot_realtime_info(
-    dataframe: pd.DataFrame, countries
+    dataframe: pd.DataFrame, countries, fig_info_type
 ) -> plotly.graph_objects.Figure:
-    fig = px.choropleth_mapbox(
-        dataframe[["country", "confirmed", "log_confirmed"]],
-        geojson=countries,
-        locations="country",
-        featureidkey="properties.ADMIN",
-        color="log_confirmed",
-        hover_name="country",
-        hover_data=["confirmed"],
-        color_continuous_scale="Reds",
-        mapbox_style="carto-positron",
-        zoom=0,
-        labels={"log_confirmed": "Count"},
-    )
-    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    if fig_info_type == "cases":
+        fig = px.choropleth_mapbox(
+            dataframe[["country", "confirmed", "log_count"]],
+            geojson=countries,
+            locations="country",
+            featureidkey="properties.ADMIN",
+            color="log_count",
+            hover_name="country",
+            hover_data=["confirmed"],
+            color_continuous_scale="Reds",
+            mapbox_style="carto-positron",
+            zoom=0,
+            labels={"log_count": "Count"},
+        )
+        fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    elif fig_info_type == "vaccines":
+        fig = px.choropleth_mapbox(
+            dataframe[["country", "people_vaccinated", "log_count"]],
+            geojson=countries,
+            locations="country",
+            featureidkey="properties.ADMIN",
+            color="log_count",
+            hover_name="country",
+            hover_data=["people_vaccinated"],
+            color_continuous_scale="Reds",
+            mapbox_style="carto-positron",
+            zoom=0,
+            labels={"log_count": "Count"},
+        )
+        fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     return fig
