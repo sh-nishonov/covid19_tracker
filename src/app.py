@@ -15,6 +15,7 @@ st.set_page_config(layout="wide")
 
 
 def main():
+
     """[summary]"""
     st.title("COVID-19 MINI DASHBOARD")
     confirmed_col, deaths_col, vaccines_col = st.columns(3)
