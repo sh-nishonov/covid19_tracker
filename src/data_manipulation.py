@@ -75,7 +75,7 @@ def plot_realtime_info(
             color="log_count",
             hover_name="country",
             hover_data=["people_vaccinated"],
-            color_continuous_scale="Reds",
+            color_continuous_scale="Blues",
             mapbox_style="carto-positron",
             zoom=0,
             labels={"log_count": "Count"},
